@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todo/src/components/ToDoListItem/ToDoListItem.dart';
 import 'package:todo/src/mock/mock.dart';
+import 'package:todo/types.dart';
 
 void main() {
   runApp(MyApp(
@@ -10,7 +12,11 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.items});
 
-  final List<String> items;
+  final List<ListItemType> items;
+
+  void _addItemToDo() {
+    print("add item");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +31,16 @@ class MyApp extends StatelessWidget {
         ),
         body: ListView.builder(
             itemCount: items.length,
-            prototypeItem: ListTile(
-              title: Text(items.first),
-            ),
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(items[index]),
+              return ToDoListItem(
+                item: items[index],
               );
             }),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _addItemToDo,
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
